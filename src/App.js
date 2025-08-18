@@ -12,46 +12,41 @@ const Charts = lazy(() => import("./pages/dashboard/Charts"));
 const UserActivity = lazy(() => import("./pages/dashboard/UserActivity"));
 const UsersAll = lazy(() => import("./pages/dashboard/Users"));
 
-// import Charts from "./pages/dashboard/Charts";
-// import UserActivity from "./pages/dashboard/UserActivity";
-// import UsersAll from "./pages/dashboard/Users";
-// import { Users } from "lucide-react";
-
 function App() {
   const token = useSelector((state) => state.auth.token);
   return (
     <Router>
       <Suspense fallback = {<Loader/>}>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            token ? (
-              <Navigate to="/dashboard/users/daily-activity" replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
-        />
-
-        {/* Public Routes */}
-        <Route element={<PublicRoute />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
-
-        {/* Protected Routes */}
-        <Route element={<PrivateRoute />}>
-          <Route path="/dashboard" element={<Charts />} />
+        <Routes>
           <Route
-            path="/dashboard/users/daily-activity"
-            element={<UserActivity />}
+            path="/"
+            element={
+              token ? (
+                <Navigate to="/dashboard/users/daily-activity" replace />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
           />
-          <Route path="/dashboard/users/all-users" element={<UsersAll />} />
-        </Route>
 
-        {/* Catch-all */}
-        <Route path="*" element={<Navigate to="/" replace />} />  
-      </Routes> 
+          {/* Public Routes */}
+          <Route element={<PublicRoute />}>
+            <Route path="/login" element={<Login />} />
+          </Route>
+
+          {/* Protected Routes */}
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Charts />} />
+            <Route
+              path="/dashboard/users/daily-activity"
+              element={<UserActivity />}
+            />
+            <Route path="/dashboard/users/all-users" element={<UsersAll />} />
+          </Route>
+
+          {/* Catch-all */}
+          <Route path="*" element={<Navigate to="/" replace />} />  
+        </Routes> 
       </Suspense>
     </Router>
   );

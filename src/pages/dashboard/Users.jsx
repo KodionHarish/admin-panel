@@ -46,10 +46,6 @@ const UsersAll = () => {
   const [unreadCount, setUnreadCount] = useState(0);
   const [userAlerts, setUserAlerts] = useState({});
   const [pendingAlerts, setPendingAlerts] = useState([]);
-  // const [btnDisable, setBtnDisable] = useState(true);
-  // const [textCount, setTextCount] = useState(0);
-
-
 
   // ==================== NOTIFICATION FUNCTIONS ====================
   useEffect(() => {
@@ -150,10 +146,11 @@ const UsersAll = () => {
         `${process.env.REACT_APP_API_BASE_URL}/api/users/usersLogs`,
         { withCredentials: true }
       );
+      console.log(res, "res");
       setUsers(res.data.data || []);
       setUsersLoaded(true);
     } catch (err) {
-      console.error("Error fetching users:", err);
+      console.error("Error fetching users:", err.response?.data || err.message);
       setUsersLoaded(false);
     }
   };
@@ -271,13 +268,6 @@ const UsersAll = () => {
  
   const handleMessageChange = (e) => {
     setNotificationMessage(e.target.value);
-    // console.log(e.target.value.length, 'e.target.value.length');
-    // if(e.target.value.length>0) {
-    //     setBtnDisable(false);
-    //     setTextCount(e.target.value.length);
-    //   }else{
-    //     setBtnDisable(true);
-    //   }
   };
   
   const handleToggleUser = (userId) => {
@@ -344,6 +334,17 @@ const UsersAll = () => {
       }
     });
 
+    newSocket.on("user-status-update", ({ userId, isOnline }) => {
+      console.log("User status update:", { userId, isOnline });
+
+      // Update the user list status in real-time
+      setUsers((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === userId ? { ...user, activeStatus: isOnline } : user
+        )
+      );
+    });
+    
     newSocket.on("disconnect", () => {
       console.log("Admin disconnected from server");
     });
@@ -455,7 +456,6 @@ const UsersAll = () => {
           onToggleUser={handleToggleUser}
           onNotifyClick={handleNotifyClick}
           isLoading={isLoading}
-          // Pagination props
           filterData={filterData}
           page={page}
           rowsPerPage={rowsPerPage}
@@ -479,14 +479,12 @@ const UsersAll = () => {
         onClose={handleCloseModal}
         selectedUser={selectedUser}
         notificationMessage={notificationMessage}
-        // textCount={textCount}
         onMessageChange={handleMessageChange}
         onSendNotification={sendNotification}
         onSendEmail={handleSendEmail}
         isLoading={isLoading}
         isEmailLoading={isEmailLoading}
         sendStatus={sendStatus}
-        // btnDisable={btnDisable}
       />
     </div>
   );

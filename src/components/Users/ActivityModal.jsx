@@ -97,8 +97,6 @@ export default function ActivityModal({
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  // const activityLevel = computeActivityLevel(activity.keyboardCount, activity.mouseCount);
-
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "ArrowLeft") handlePrev();
@@ -107,12 +105,6 @@ export default function ActivityModal({
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handlePrev, handleNext]);
-
-  // function computeActivityLevel(keyboardCount, mouseCount) {
-  //   const weightedScore = keyboardCount * 1.5 + mouseCount * 2.0;
-  //   const maxActivity = 100;
-  //   return Math.min(10, Math.round((weightedScore / maxActivity) * 10));
-  // }
 
   function getActivityAverages(duration, keyboardCount, mouseCount) {
     if (duration === 0) return { perMinute: {} };
@@ -166,10 +158,7 @@ export default function ActivityModal({
           </div>
           <div className="flex justify-center gap-6">
             <div className="lg:col-span-2 w-[580px]">
-              <img src={`http://localhost:5000/uploads/${activity.screenshotName}`} alt="Activity screenshot" className="w-full rounded-lg border" />
-              {/* <button onClick={() => deleteScreenShot(activity.id)} className="mt-4 text-md text-green-600 flex gap-[4px]">
-                <Trash2 /> Remove
-              </button> */}
+              <img src={activity.screenshotUrl} alt="Activity screenshot" className="w-full rounded-lg border" />
               <button onClick={openModal} className="mt-4 text-md text-green-600 flex gap-[4px]">
                 <Trash2 /> Remove
               </button>

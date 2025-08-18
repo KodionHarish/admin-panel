@@ -88,6 +88,7 @@ export default function TimeSlot({ slot, onScreenshotClick }) {
             </div>
         {/* <button className="text-gray-400 hover:text-gray-600">⋯</button> */}
       </div>
+        {console.log(slot,"slot.logs")}
 
       {slot.logs && slot.logs.length > 0 && (
         <div className="grid grid-cols-3 gap-4 mb-4">
@@ -98,7 +99,7 @@ export default function TimeSlot({ slot, onScreenshotClick }) {
             return (
               <div key={screenshotIndex} className="relative">
                 <img
-                  src={`${process.env.REACT_APP_API_BASE_URL}/uploads/${screenshot.screenshotName}`}
+                  src={screenshot.screenshotUrl}
                   alt="Activity screenshot"
                   className="w-full h-32 object-cover rounded-lg border cursor-pointer hover:opacity-80"
                   onClick={() => onScreenshotClick(screenshot)}

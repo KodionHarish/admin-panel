@@ -31,7 +31,7 @@ const SearchAndFilters = ({
         sx={{
           minWidth: 300,
           maxWidth: 300,
-          "& .MuiAutocomplete-inputRoot": {
+          "& .MuiAutocomplete-inputRoot": { 
             flexWrap: "nowrap",
             maxWidth: "100%",
             overflow: "hidden",

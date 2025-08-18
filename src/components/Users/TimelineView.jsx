@@ -75,6 +75,7 @@ export default function TimelineView({
         withCredentials: true,
       }
     );
+    console.log(res,'responssssssssssssssssss')
     if (res.status === 200) {
       const updatedLogs = activityLogs.filter((log) => log.id !== id);
       setActivityLogs(updatedLogs);
