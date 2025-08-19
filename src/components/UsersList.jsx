@@ -11,8 +11,36 @@ export default function UsersList({ viewMode, setViewMode }) {
   const [selectedUser, setSelectedUser] = useState({});
   const [fetchLatestData, setFetchLatestData] = useState(false);
   const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
-  const socket = io(process.env.REACT_APP_API_BASE_URL);
- 
+  const [socket, setSocket] = useState(null);
+
+  // Initialize socket connection with proper cleanup
+  useEffect(() => {
+    const newSocket = io(process.env.REACT_APP_API_BASE_URL, {
+      query: {
+        userType: 'admin' // Identify this as admin dashboard connection
+      }
+    });
+
+    setSocket(newSocket);
+
+    // Handle status updates
+    newSocket.on("status-updated", ({ userId, isOnline }) => {
+      console.log(`Dashboard received status update: User ${userId} is ${isOnline ? 'online' : 'offline'}`);
+      setUserWithLogs((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === userId ? { ...user, activeStatus: isOnline } : user
+        )
+      );
+    });
+
+    // Cleanup on unmount
+    return () => {
+      console.log("Dashboard disconnecting socket");
+      newSocket.disconnect();
+    };
+  }, []); // Empty dependency array - only run once
+
+
   useEffect(() => {
     const fetchData = () => {
       axios
@@ -40,14 +68,6 @@ export default function UsersList({ viewMode, setViewMode }) {
     const intervalId = setInterval(fetchData, 5 * 60 * 1000);
     return () => clearInterval(intervalId);
   }, [date, fetchLatestData]);
- 
-  socket.on("status-updated", ({ userId, isOnline }) => {
-    setUserWithLogs((prevUsers) =>
-      prevUsers.map((user) =>
-        user.id === userId ? { ...user, activeStatus: isOnline } : user
-      )
-    );
-  });
  
   const fetchUserLogs = (id) => {
     const sUser = userWithLogs.filter((user) => user.id == id);
