@@ -103,7 +103,7 @@ export default function TimeSlot({ slot, onScreenshotClick }) {
                   alt="Activity screenshot"
                   className="w-full h-32 object-cover rounded-lg border cursor-pointer hover:opacity-80"
                   onClick={() => onScreenshotClick(screenshot)}
-                />
+                /> 
                 <div className="absolute bottom-2 left-2 right-2 bg-black bg-opacity-50 rounded px-2 py-1">
                   <div className="text-xs text-white text-center">
                     {dayjs(screenshot.timestamp).format("h:mm A")}
