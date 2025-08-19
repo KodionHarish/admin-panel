@@ -30,6 +30,7 @@ export default function UsersList({ viewMode, setViewMode }) {
                 ? JSON.parse(user.activity_data || "[]")
                 : user.activity_data || [],
           }));
+          console.log(processedUsers,"processedUsers")
           setUserWithLogs(processedUsers);
         })
         .catch((err) => console.error("Failed to fetch users:", err));
