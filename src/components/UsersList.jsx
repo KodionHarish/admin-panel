@@ -30,13 +30,13 @@ export default function UsersList({ viewMode, setViewMode }) {
                 ? JSON.parse(user.activity_data || "[]")
                 : user.activity_data || [],
           }));
-          console.log(processedUsers,"processedUsers")
+          
           setUserWithLogs(processedUsers);
         })
         .catch((err) => console.error("Failed to fetch users:", err));
     };
     fetchData();
- 
+    console.log(userWithLogs ,"processedUsers userWithLogs")
     const intervalId = setInterval(fetchData, 5 * 60 * 1000);
     return () => clearInterval(intervalId);
   }, [date, fetchLatestData]);
