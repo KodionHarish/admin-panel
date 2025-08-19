@@ -15,7 +15,7 @@ import {
   TableRow,
   Paper,
 } from "@mui/material";
-
+import dayjs from "dayjs";
 
 
 export default function UserSummary({
@@ -184,7 +184,8 @@ export default function UserSummary({
                       </div>
                     </TableCell>
                     <TableCell align="center">
-                      {user.lastScreenshotTime || "-"}
+                      {dayjs(user.lastScreenshotTime).format("h:mm A")}
+                      {/* {user.lastScreenshotTime || "-"} */}
                     </TableCell>
                     <TableCell align="center">
                       <span
