@@ -63,7 +63,7 @@ const NotificationModal = ({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Box display="flex" alignItems="center" gap={1}>
+          <Box display="flex" alignItems="center" gap={2}>
             <Bell className="w-5 h-5" />
             <Typography variant="h6">System Notifications</Typography>
             {unreadCount > 0 && (
