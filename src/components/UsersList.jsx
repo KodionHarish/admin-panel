@@ -17,7 +17,7 @@ export default function UsersList({ viewMode, setViewMode }) {
   useEffect(() => {
     const newSocket = io(process.env.REACT_APP_API_BASE_URL, {
       query: {
-        userType: 'admin' // Identify this as admin dashboard connection
+        userType: 'admin'
       }
     });
 
@@ -33,12 +33,11 @@ export default function UsersList({ viewMode, setViewMode }) {
       );
     });
 
-    // Cleanup on unmount
     return () => {
       console.log("Dashboard disconnecting socket");
       newSocket.disconnect();
     };
-  }, []); // Empty dependency array - only run once
+  }, []);
 
 
   useEffect(() => {

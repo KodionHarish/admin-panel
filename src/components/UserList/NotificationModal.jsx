@@ -31,6 +31,7 @@ const NotificationModal = ({
   unreadCount,
   onMarkAsRead,
   onClearAll,
+  onMarkAllAsRead,
 }) => {
   const getAlertIcon = (severity) => {
     switch (severity) {
@@ -70,6 +71,14 @@ const NotificationModal = ({
             )}
           </Box>
           <Box>
+              <Button
+                size="small"
+                onClick={onMarkAllAsRead}
+                disabled={unreadCount === 0}  
+                sx={{ mr: 1 }}
+              >
+                Mark All as Read
+              </Button>
             <Button
               size="small"
               onClick={onClearAll}
