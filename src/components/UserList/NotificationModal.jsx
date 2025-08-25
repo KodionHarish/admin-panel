@@ -63,12 +63,11 @@ const NotificationModal = ({
           justifyContent="space-between"
           alignItems="center"
         >
-          <Box display="flex" alignItems="center" gap={2}>
-            <Bell className="w-5 h-5" />
+          <Box display="flex" alignItems="center" gap={1.5}>
+            <Badge badgeContent={unreadCount} color="error">
+              <Bell className="w-5 h-5" />
+            </Badge>
             <Typography variant="h6">System Notifications</Typography>
-            {unreadCount > 0 && (
-              <Badge badgeContent={unreadCount} color="error" />
-            )}
           </Box>
           <Box>
               <Button
