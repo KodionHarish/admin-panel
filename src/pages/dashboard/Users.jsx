@@ -135,6 +135,7 @@ const UsersAll = () => {
   const markAllAsRead = () => {
     setNotifications((prev) => prev.map((notif) => ({ ...notif, read: true })));
     setUnreadCount(0);
+    setUserAlerts({});
   };
 
   // Function to clear all notifications
