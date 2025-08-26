@@ -33,6 +33,7 @@ export default function UsersList({ viewMode, setViewMode }) {
       );
     });
      setSocket(newSocket);
+     setUserWithLogs(userWithLogs);
     return () => {
       console.log("Dashboard disconnecting socket");
       newSocket.disconnect();
