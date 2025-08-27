@@ -15,6 +15,7 @@ export default function UsersList({ viewMode, setViewMode }) {
 
   // Initialize socket connection with proper cleanup
   useEffect(() => {
+    console.log("Initializing socket connection and its called");
     const newSocket = io(process.env.REACT_APP_API_BASE_URL, {
       query: {
         userType: 'admin'
@@ -33,6 +34,7 @@ export default function UsersList({ viewMode, setViewMode }) {
         )
       );
     });
+    fetchData();
     //  setSocket(newSocket);
     return () => {
       console.log("Dashboard disconnecting socket");
@@ -51,30 +53,15 @@ export default function UsersList({ viewMode, setViewMode }) {
           }
         )
         .then((res) => {
-          // const processedUsers = res.data.data.map((user) => ({
-          //   ...user,
-          //   activity_data:
-          //     typeof user.activity_data === "string"
-          //       ? JSON.parse(user.activity_data || "[]")
-          //       : user.activity_data || [],
-          // }));
+          const processedUsers = res.data.data.map((user) => ({
+            ...user,
+            activity_data:
+              typeof user.activity_data === "string"
+                ? JSON.parse(user.activity_data || "[]")
+                : user.activity_data || [],
+          }));
           
-          // setUserWithLogs(processedUsers);
-          setUserWithLogs((prevUsers) => {
-            const processedUsers = res.data.data.map((user) => {
-              const prevUser = prevUsers.find((u) => u.id === user.id);
-              return {
-                ...user,
-                activity_data:
-                  typeof user.activity_data === "string"
-                    ? JSON.parse(user.activity_data || "[]")
-                    : user.activity_data || [],
-                // keep activeStatus if we already have it
-                activeStatus: prevUser ? prevUser.activeStatus : user.activeStatus ?? false,
-              };
-            });
-            return processedUsers;
-          });
+          setUserWithLogs(processedUsers);
         })
         .catch((err) => console.error("Failed to fetch users:", err));
     };
