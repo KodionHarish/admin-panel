@@ -65,7 +65,6 @@ export default function UsersList({ viewMode, setViewMode }) {
         })
         .catch((err) => console.error("Failed to fetch users:", err));
     };
-    fetchData();
     console.log(userWithLogs ,"processedUsers userWithLogs")
     const intervalId = setInterval(fetchData, 5 * 60 * 1000);
     return () => clearInterval(intervalId);
