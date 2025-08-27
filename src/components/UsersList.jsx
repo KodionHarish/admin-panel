@@ -13,35 +13,7 @@ export default function UsersList({ viewMode, setViewMode }) {
   const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
   const [socket, setSocket] = useState(null);
 
-  // Initialize socket connection with proper cleanup
-  useEffect(() => {
-    console.log("Initializing socket connection and its called");
-    const newSocket = io(process.env.REACT_APP_API_BASE_URL, {
-      query: {
-        userType: 'admin'
-      },
-      withCredentials: true,
-    });
-
-   
-
-    // Handle status updates
-    newSocket.on("user-status-update", ({ userId, isOnline }) => {
-      console.log(`Dashboard received status update: User ${userId} is ${isOnline ? 'online' : 'offline'}`);
-      setUserWithLogs((prevUsers) =>
-        prevUsers.map((user) =>
-          user.id === userId ? { ...user, activeStatus: isOnline } : user
-        )
-      );
-    });
-    fetchData();
-    //  setSocket(newSocket);
-    return () => {
-      console.log("Dashboard disconnecting socket");
-      newSocket.disconnect();
-    };
-  }, []);
-
+ 
 
   useEffect(() => {
     const fetchData = () => {
@@ -84,7 +56,36 @@ export default function UsersList({ viewMode, setViewMode }) {
     setDate(newDate);
     setViewMode("summary");
   };
- 
+  
+   // Initialize socket connection with proper cleanup
+  useEffect(() => {
+    console.log("Initializing socket connection and its called");
+    const newSocket = io(process.env.REACT_APP_API_BASE_URL, {
+      query: {
+        userType: 'admin'
+      },
+      withCredentials: true,
+    });
+
+   
+
+    // Handle status updates
+    newSocket.on("user-status-update", ({ userId, isOnline }) => {
+      console.log(`Dashboard received status update: User ${userId} is ${isOnline ? 'online' : 'offline'}`);
+      setUserWithLogs((prevUsers) =>
+        prevUsers.map((user) =>
+          user.id === userId ? { ...user, activeStatus: isOnline } : user
+        )
+      );
+    });
+    fetchData();
+    //  setSocket(newSocket);
+    return () => {
+      console.log("Dashboard disconnecting socket");
+      newSocket.disconnect();
+    };
+  }, []);
+
  
   if (viewMode === "timeline") {
     return (
