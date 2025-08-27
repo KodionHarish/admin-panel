@@ -18,7 +18,8 @@ export default function UsersList({ viewMode, setViewMode }) {
     const newSocket = io(process.env.REACT_APP_API_BASE_URL, {
       query: {
         userType: 'admin'
-      }
+      },
+      withCredentials: true,
     });
 
    
@@ -33,7 +34,6 @@ export default function UsersList({ viewMode, setViewMode }) {
       );
     });
      setSocket(newSocket);
-     setUserWithLogs(userWithLogs);
     return () => {
       console.log("Dashboard disconnecting socket");
       newSocket.disconnect();
