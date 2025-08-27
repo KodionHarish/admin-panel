@@ -13,10 +13,7 @@ export default function UsersList({ viewMode, setViewMode }) {
   const [date, setDate] = useState(dayjs().format("YYYY-MM-DD"));
   const [socket, setSocket] = useState(null);
 
- 
-
-  useEffect(() => {
-    const fetchData = () => {
+ const fetchData = () => {
       axios
         .get(
           `${process.env.REACT_APP_API_BASE_URL}/api/users/usersWithLogs?date=${date}`,
@@ -37,6 +34,9 @@ export default function UsersList({ viewMode, setViewMode }) {
         })
         .catch((err) => console.error("Failed to fetch users:", err));
     };
+
+  useEffect(() => {
+    fetchData();
     console.log(userWithLogs ,"processedUsers userWithLogs")
     const intervalId = setInterval(fetchData, 5 * 60 * 1000);
     return () => clearInterval(intervalId);
