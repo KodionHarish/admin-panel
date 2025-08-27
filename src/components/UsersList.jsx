@@ -25,7 +25,7 @@ export default function UsersList({ viewMode, setViewMode }) {
    
 
     // Handle status updates
-    newSocket.on("status-updated", ({ userId, isOnline }) => {
+    newSocket.on("user-status-update", ({ userId, isOnline }) => {
       console.log(`Dashboard received status update: User ${userId} is ${isOnline ? 'online' : 'offline'}`);
       setUserWithLogs((prevUsers) =>
         prevUsers.map((user) =>
@@ -33,7 +33,7 @@ export default function UsersList({ viewMode, setViewMode }) {
         )
       );
     });
-     setSocket(newSocket);
+    //  setSocket(newSocket);
     return () => {
       console.log("Dashboard disconnecting socket");
       newSocket.disconnect();
