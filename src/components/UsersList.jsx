@@ -142,12 +142,12 @@ export default function UsersList({ viewMode, setViewMode }) {
       .catch((err) => console.error("Failed to fetch users:", err));
   };
 
-  // Auto refresh every 5 mins
-  useEffect(() => {
-    fetchData(); // ✅ initial fetch
-    const intervalId = setInterval(fetchData, 5 * 60 * 1000);
-    return () => clearInterval(intervalId);
-  }, [date, fetchLatestData]);
+  // // Auto refresh every 5 mins
+  // useEffect(() => {
+  //   fetchData(); // ✅ initial fetch
+  //   const intervalId = setInterval(fetchData, 5 * 60 * 1000);
+  //   return () => clearInterval(intervalId);
+  // }, [date, fetchLatestData, userWithLogs]);
 
   const fetchUserLogs = (id) => {
     const sUser = userWithLogs.find((user) => user.id == id);
@@ -180,7 +180,7 @@ export default function UsersList({ viewMode, setViewMode }) {
       );
     });
 
-    fetchData(); // ✅ can now call it safely
+    fetchData();
     setSocket(newSocket);
     return () => {
       console.log("Dashboard disconnecting socket");
