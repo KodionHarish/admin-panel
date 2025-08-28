@@ -1,6 +1,3 @@
-
-
-
 // Users.jsx - Main component with business logic
 import { useState, useEffect ,useRef} from "react";
 import axios from "axios";
@@ -115,9 +112,9 @@ const UsersAll = () => {
         return updated;
       });
 
-      setNotifications((prev) =>
-        prev.filter((notif) => notif.userId !== userId)
-      );
+      // setNotifications((prev) =>
+      //   prev.filter((notif) => notif.userId !== userId)
+      // );
     }
   };
 
