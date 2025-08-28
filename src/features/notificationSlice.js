@@ -1,4 +1,4 @@
-// store/notificationSlice.js
+// store/notificationSlice.js - Clean version for Redux Persist
 import { createSlice } from '@reduxjs/toolkit';
 
 const notificationSlice = createSlice({
