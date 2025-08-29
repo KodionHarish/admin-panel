@@ -7,11 +7,9 @@ export const groupLogsByTimeSlots = (logs) => {
   logs.forEach(log => {
     const logTime = dayjs(log.timestamp);
 
-    // Round down to nearest 2-minute interval
-    // const minute = Math.floor(logTime.minute() / 30) * 30;
+
     const hour = logTime.hour();
     const slotKey = `${hour.toString().padStart(2, '0')}:00`;
-    // const slotKey = logTime.hour().toString().padStart(2, '0') + ':' + minute.toString().padStart(2, '0');
 
     if (!timeSlots[slotKey]) {
       const start = logTime.minute(0).second(0);

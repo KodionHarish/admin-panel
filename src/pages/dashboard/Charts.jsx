@@ -54,7 +54,6 @@ const Charts = () => {
     try {
       const res = await axios.get(
         `${process.env.REACT_APP_API_BASE_URL}/api/activities/all-activity`,
-        // "http://localhost:5000/api/activities/all-activity",
         { withCredentials: true }
       );
 
@@ -146,7 +145,6 @@ const Charts = () => {
   const handleDeleteOldLogs = async () => {
     try {
       const res = await axios.delete(
-        // `http://localhost:5000/api/activities/old-logs?days=${selectedDays}`,
         `${process.env.REACT_APP_API_BASE_URL}/api/activities/old-logs?days=${selectedDays}`,
         { withCredentials: true }
       );
@@ -171,7 +169,6 @@ const Charts = () => {
         <div className="flex justify-between">
           <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
           <button
-            // onClick={handleDeleteOldLogs}
             onClick={() => setShowModal(true)}
             className="mb-6 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
           >

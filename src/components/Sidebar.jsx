@@ -33,10 +33,8 @@ const Sidebar = ({ setViewMode }) => {
 
   const menuItems = [
     { label: "Dashboard", path: "/dashboard" },
-    // { label: "Profile", path: "/dashboard/profile" },
     { label: "Users Activity", path: "/dashboard/users/daily-activity" },
     { label: "Users", path: "/dashboard/users/all-users" },
-    // { label: "Ignored Jobs", path: "/dashboard/ignored-jobs" },
   ];
   const isActive = (path) => {
     if (path === "/dashboard") {

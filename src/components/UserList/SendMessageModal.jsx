@@ -150,8 +150,6 @@ const SendMessageModal = ({
           rows={4}
           fullWidth
           variant="outlined"
-          // value={notificationMessage}
-          // value={textareaRef.current?.value}
           onChange={onMessageChange}
           onKeyDown={handleKeyDown}
           placeholder="Enter your message... (Ctrl+Enter to send)"
